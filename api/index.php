@@ -45,8 +45,8 @@ try {
     $_ENV['DB_CONNECTION'] = 'sqlite';
     $_ENV['DB_DATABASE'] = $targetDb;
 
-    // Fallback APP_KEY
-    if (!env('APP_KEY')) {
+    // Fallback APP_KEY using native getenv
+    if (!getenv('APP_KEY')) {
         putenv('APP_KEY=base64:yJXhRe8J5iIPv0y5Y3++tSwCgqRue2HwNo6zfkx8z98=');
         $_ENV['APP_KEY'] = 'base64:yJXhRe8J5iIPv0y5Y3++tSwCgqRue2HwNo6zfkx8z98=';
     }
