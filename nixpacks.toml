@@ -1,0 +1,20 @@
+# Configuration for deploying Laravel 12 on Railway with Nixpacks
+providers = ["php", "node"]
+
+[variables]
+NIXPACKS_PHP_ROOT_DIR = "public"
+NIXPACKS_PHP_FALLBACK_PATH = "/index.php"
+
+[phases.install]
+cmds = [
+    "composer install --no-dev --optimize-autoloader --no-interaction",
+    "npm install"
+]
+
+[phases.build]
+cmds = [
+    "npm run build"
+]
+
+[start]
+cmd = "php artisan migrate --force && /assets/scripts/prestart.sh"
