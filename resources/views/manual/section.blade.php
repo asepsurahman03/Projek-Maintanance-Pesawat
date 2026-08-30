@@ -15,31 +15,73 @@
 <div class="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-8">
 
     {{-- Section Header Banner --}}
-    <div class="rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 text-white border border-slate-800 p-6 sm:p-8 shadow-2xl">
+    <div class="rounded-3xl bg-gradient-to-br from-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-blue-950 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-sm dark:shadow-2xl" x-data="{ showPdf: false }">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <div class="flex items-start gap-4">
                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center font-mono font-extrabold text-white text-base shadow-lg shadow-cyan-950 flex-shrink-0">
                     §{{ Str::padLeft($sectionModel->section_number, 2, '0') }}
                 </div>
                 <div class="space-y-1">
-                    <div class="text-[11px] font-mono font-semibold text-cyan-400 uppercase tracking-wider">Cessna 172 Service Manual</div>
-                    <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Section {{ $sectionModel->section_number }} — {{ $sectionModel->title }}</h1>
+                    <div class="text-[11px] font-mono font-semibold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">Cessna 172 Service Manual • D1232-13</div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Section {{ $sectionModel->section_number }} — {{ $sectionModel->title }}</h1>
                     @if($sectionModel->description)
-                    <p class="text-slate-300 text-sm max-w-2xl leading-relaxed pt-1">{{ $sectionModel->description }}</p>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm max-w-2xl leading-relaxed pt-1">{{ $sectionModel->description }}</p>
+                    @endif
+                    @if($sectionModel->page_start)
+                    <div class="flex items-center gap-2 pt-1">
+                        <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-mono text-slate-600 dark:text-slate-400">
+                            Pages {{ $sectionModel->page_start }}–{{ $sectionModel->page_end }}
+                        </span>
+                        <span class="text-xs text-slate-500 dark:text-slate-500">
+                            ({{ ($sectionModel->page_end - $sectionModel->page_start + 1) }} pages)
+                        </span>
+                    </div>
                     @endif
                 </div>
             </div>
 
-            <div class="flex items-center gap-3 flex-shrink-0">
+            <div class="flex items-center gap-2 flex-shrink-0 flex-wrap">
                 @if($sectionModel->page_start)
-                <a href="{{ route('manual.page', $sectionModel->page_start) }}" target="_blank"
-                   class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white text-xs font-semibold flex items-center gap-2 transition-all shadow-sm">
-                    <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                    <span>View PDF (p.{{ $sectionModel->page_start }})</span>
-                </a>
+                {{-- PDF Viewer Toggle --}}
+                <button @click="showPdf = !showPdf"
+                        class="px-4 py-2.5 rounded-xl transition-all shadow-sm text-xs font-bold flex items-center gap-2"
+                        :class="showPdf ? 'bg-amber-100 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-500/40 text-amber-800 dark:text-amber-300' : 'bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200'">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                    <span x-text="showPdf ? 'Hide PDF Viewer' : 'View Original PDF'"></span>
+                </button>
                 @endif
             </div>
         </div>
+
+        {{-- Inline PDF Viewer --}}
+        @if($sectionModel->page_start)
+        <div x-show="showPdf"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             class="mt-6 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-xl"
+             style="display:none;">
+            <div class="flex items-center justify-between px-4 py-2.5 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 text-xs font-mono">
+                <span class="text-slate-600 dark:text-slate-400 font-bold">
+                    📄 Original PDF — Section {{ $sectionModel->section_number }} (p.{{ $sectionModel->page_start }})
+                </span>
+                <a href="/cessna_172_1969-76_smv1975.pdf#page={{ $sectionModel->page_start }}" target="_blank"
+                   class="flex items-center gap-1.5 text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 transition-colors font-semibold">
+                    Open Full PDF ↗
+                </a>
+            </div>
+            <iframe
+                src="/cessna_172_1969-76_smv1975.pdf#page={{ $sectionModel->page_start }}&toolbar=1&navpanes=0&scrollbar=1"
+                class="w-full"
+                style="height: 680px;"
+                title="Section {{ $sectionModel->section_number }} — {{ $sectionModel->title }} — Original PDF">
+                <p class="p-4 text-xs text-slate-500">Your browser does not support PDF viewing inline. <a href="/cessna_172_1969-76_smv1975.pdf#page={{ $sectionModel->page_start }}" class="text-cyan-600 underline">Open PDF directly →</a></p>
+            </iframe>
+        </div>
+        @endif
     </div>
 
     {{-- Subsections / Procedures --}}

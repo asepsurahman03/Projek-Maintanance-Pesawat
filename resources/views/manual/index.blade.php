@@ -27,10 +27,15 @@
         </div>
 
         <div class="flex flex-wrap items-center gap-3 flex-shrink-0">
+            <a href="{{ asset('cessna_172_1969-76_smv1975.pdf') }}" target="_blank"
+               class="px-4 py-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 border border-emerald-200 dark:border-emerald-700/40 text-emerald-700 dark:text-emerald-300 hover:text-emerald-800 dark:hover:text-emerald-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span>Download Full PDF (23 MB)</span>
+            </a>
             <a href="{{ route('manual.page', 1) }}"
                class="px-4 py-2.5 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white text-xs font-semibold flex items-center gap-2 transition-all shadow-sm">
                 <svg class="w-4 h-4 text-cyan-600 dark:text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                <span>Original PDF Viewer</span>
+                <span>Page-by-Page Viewer</span>
             </a>
             <a href="{{ route('search') }}"
                class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white text-xs font-semibold flex items-center gap-2 shadow-lg shadow-cyan-950/40 transition-all hover:scale-105 active:scale-95">
@@ -59,10 +64,16 @@
                 </div>
             </div>
 
-            <div class="flex items-center gap-4 flex-shrink-0">
+            <div class="flex items-center gap-3 flex-shrink-0">
                 @if($section->page_start)
                 <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-xs text-slate-600 dark:text-slate-400">
                     p.{{ $section->page_start }}@if($section->page_end)–{{ $section->page_end }}@endif
+                </span>
+                @endif
+                @if($section->subsections_count > 0)
+                <span class="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-700/30 text-emerald-700 dark:text-emerald-400 text-[10px] font-bold font-mono">
+                    <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                    {{ $section->subsections_count }} proc.
                 </span>
                 @endif
                 <span class="text-xs font-semibold text-slate-400 dark:text-slate-500 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors flex items-center gap-1">

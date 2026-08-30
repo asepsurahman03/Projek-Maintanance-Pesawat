@@ -12,7 +12,7 @@ class ManualController extends Controller
     public function index()
     {
         $manual   = Manual::with('sections')->first();
-        $sections = Section::orderBy('sort_order')->get();
+        $sections = Section::orderBy('sort_order')->withCount('subsections')->get();
 
         return view('manual.index', compact('manual', 'sections'));
     }

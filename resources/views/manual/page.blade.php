@@ -43,7 +43,7 @@
             <span class="badge-blue hidden sm:inline-flex">Section {{ $currentSection->section_number }}</span>
             <span class="text-xs text-slate-500 hidden md:block truncate max-w-xs">{{ $currentSection->title }}</span>
             @endif
-            <a href="{{ asset('storage/manual/cessna_172_1969-76_smv1975.pdf') }}" target="_blank"
+            <a href="{{ asset('cessna_172_1969-76_smv1975.pdf') }}" target="_blank"
                class="btn-secondary btn-sm">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                 Open PDF
@@ -53,7 +53,7 @@
 
     {{-- PDF Viewer --}}
     <div class="flex-1 relative bg-slate-700 dark:bg-slate-950">
-        @php $pdfUrl = asset('storage/manual/cessna_172_1969-76_smv1975.pdf'); @endphp
+        @php $pdfUrl = asset('cessna_172_1969-76_smv1975.pdf'); @endphp
 
         <div id="pdf-viewer" class="w-full h-full flex items-center justify-center">
             <div id="pdf-loading" class="text-center text-white py-16">
@@ -70,7 +70,7 @@
 <script>
 // PDF.js viewer using CDN
 (function() {
-    const pdfUrl = "{{ asset('storage/manual/cessna_172_1969-76_smv1975.pdf') }}";
+    const pdfUrl = "{{ asset('cessna_172_1969-76_smv1975.pdf') }}";
     const pageNum = {{ $page }};
 
     // Load PDF.js from CDN
