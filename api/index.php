@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 define('LARAVEL_START', microtime(true));
@@ -30,7 +31,7 @@ try {
     }
 
     // Setup SQLite database in /tmp
-    $sourceDb = __DIR__ . '/../database/database.sqlite';
+    $sourceDb = dirname(__DIR__) . '/database/database.sqlite';
     $targetDb = '/tmp/database.sqlite';
 
     if (!file_exists($targetDb) || filesize($targetDb) === 0) {
@@ -54,22 +55,29 @@ try {
     }
 
     // Autoloader
-    require __DIR__ . '/../vendor/autoload.php';
+    require dirname(__DIR__) . '/vendor/autoload.php';
 
     // Bootstrap Laravel Application
     /** @var Application $app */
-    $app = require_once __DIR__ . '/../bootstrap/app.php';
+    $app = require_once dirname(__DIR__) . '/bootstrap/app.php';
 
     $app->useStoragePath('/tmp/storage');
 
-    // Auto-migrate and seed if tables are missing
-    try {
-        if (!Schema::hasTable('manuals')) {
-            Artisan::call('migrate', ['--force' => true]);
-            Artisan::call('db:seed', ['--force' => true]);
-        }
-    } catch (\Throwable $migrationError) {
-        // Log migration error if any
+    // Force database configuration to use /tmp/database.sqlite
+    config([
+        'database.default' => 'sqlite',
+        'database.connections.sqlite.database' => $targetDb,
+        'session.driver' => 'file',
+        'session.files' => '/tmp/storage/framework/sessions',
+        'view.compiled' => '/tmp/storage/framework/views',
+    ]);
+    DB::purge('sqlite');
+    DB::reconnect('sqlite');
+
+    // Ensure migrations and seeders run if database was not pre-populated
+    if (!Schema::hasTable('manuals')) {
+        Artisan::call('migrate', ['--force' => true]);
+        Artisan::call('db:seed', ['--force' => true]);
     }
 
     // Handle incoming request
