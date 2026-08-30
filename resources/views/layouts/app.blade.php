@@ -17,7 +17,7 @@
       x-init="if (darkMode) document.documentElement.classList.add('dark')">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'Cessna 172 Series') — Digital Service Manual</title>
@@ -68,42 +68,42 @@
 
     @stack('head')
 </head>
-<body class="bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col antialiased transition-colors duration-200">
+<body class="bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col antialiased transition-colors duration-200 overflow-x-hidden">
 
 <!-- Hidden Google Translate Element Container -->
 <div id="google_translate_element" style="display:none;"></div>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     TOP NAVIGATION BAR WITH ICONS, SUB-MENUS & AUTH BUTTONS
+     RESPONSIVE TOP NAVIGATION HEADER
 ═══════════════════════════════════════════════════════════════ -->
-<header class="sticky top-0 z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16 gap-4">
+<header class="sticky top-0 z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-200">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 gap-2 sm:gap-4">
 
-            <!-- Logo & Brand -->
-            <a href="{{ route('dashboard') }}" class="flex items-center gap-3 flex-shrink-0 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 via-blue-600 to-indigo-600 p-0.5 shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-all duration-300">
+            <!-- Logo & Brand (Responsive) -->
+            <a href="{{ route('dashboard') }}" class="flex items-center gap-2.5 sm:gap-3 flex-shrink-0 group">
+                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-cyan-600 via-blue-600 to-indigo-600 p-0.5 shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-all duration-300">
                     <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-                        <svg class="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                         </svg>
                     </div>
                 </div>
-                <div>
-                    <div class="text-sm font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-1.5 leading-none">
+                <div class="notranslate" translate="no">
+                    <div class="text-xs sm:text-sm font-extrabold tracking-tight text-slate-900 dark:text-white flex items-center gap-1.5 leading-none">
                         CESSNA 172
-                        <span class="text-[10px] font-mono px-1.5 py-0.5 bg-blue-100 dark:bg-cyan-950 text-blue-700 dark:text-cyan-400 border border-blue-200 dark:border-cyan-800/60 rounded">1969–1976</span>
+                        <span class="hidden xs:inline text-[9px] sm:text-[10px] font-mono px-1.5 py-0.5 bg-blue-100 dark:bg-cyan-950 text-blue-700 dark:text-cyan-400 border border-blue-200 dark:border-cyan-800/60 rounded font-bold">1969–1976</span>
                     </div>
-                    <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium tracking-wide mt-1 leading-none">Digital Service Manual</div>
+                    <div class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 font-medium tracking-wide mt-1 leading-none truncate max-w-[120px] sm:max-w-none">Service Manual</div>
                 </div>
             </a>
 
-            <!-- Desktop Navigation with Icons and Sub-Menus -->
-            <nav class="hidden lg:flex items-center gap-1">
+            <!-- Desktop Navigation Menu (Large screens >= 1024px) -->
+            <nav class="hidden lg:flex items-center gap-1 xl:gap-1.5">
 
                 <!-- 1. Dashboard -->
                 <a href="{{ route('dashboard') }}"
-                   class="px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors flex items-center gap-1.5 {{ request()->routeIs('dashboard') ? 'bg-blue-50 dark:bg-slate-900 text-blue-600 dark:text-cyan-400 border border-blue-200 dark:border-slate-800' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900/60' }}">
+                   class="px-3 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 {{ request()->routeIs('dashboard') ? 'bg-blue-50 dark:bg-slate-900 text-blue-600 dark:text-cyan-400 border border-blue-200 dark:border-slate-800' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900/60' }}">
                     <svg class="w-4 h-4 text-blue-500 dark:text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                     <span>Dashboard</span>
                 </a>
@@ -111,7 +111,7 @@
                 <!-- 2. Service Manual Dropdown -->
                 <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
                     <button @click="open = !open"
-                            class="px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors flex items-center gap-1.5 {{ request()->routeIs('manual.*') ? 'bg-blue-50 dark:bg-slate-900 text-blue-600 dark:text-cyan-400 border border-blue-200 dark:border-slate-800' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900/60' }}">
+                            class="px-3 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 {{ request()->routeIs('manual.*') ? 'bg-blue-50 dark:bg-slate-900 text-blue-600 dark:text-cyan-400 border border-blue-200 dark:border-slate-800' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900/60' }}">
                         <svg class="w-4 h-4 text-indigo-500 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                         <span>Service Manual</span>
                         <svg class="w-3.5 h-3.5 text-slate-400 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
@@ -163,7 +163,7 @@
                 <!-- 3. Technical Specs Dropdown -->
                 <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
                     <button @click="open = !open"
-                            class="px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors flex items-center gap-1.5 {{ request()->routeIs('specifications') || request()->routeIs('torque') || request()->routeIs('models.*') ? 'bg-blue-50 dark:bg-slate-900 text-blue-600 dark:text-cyan-400 border border-blue-200 dark:border-slate-800' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900/60' }}">
+                            class="px-3 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 {{ request()->routeIs('specifications') || request()->routeIs('torque') || request()->routeIs('models.*') ? 'bg-blue-50 dark:bg-slate-900 text-blue-600 dark:text-cyan-400 border border-blue-200 dark:border-slate-800' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900/60' }}">
                         <svg class="w-4 h-4 text-emerald-500 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                         <span>Technical Specs</span>
                         <svg class="w-3.5 h-3.5 text-slate-400 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
@@ -214,9 +214,9 @@
                 <!-- 4. Maintenance & Operations Dropdown -->
                 <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
                     <button @click="open = !open"
-                            class="px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors flex items-center gap-1.5 {{ request()->routeIs('inspection') || request()->routeIs('systems.*') || request()->routeIs('figures.*') || request()->routeIs('wiring') ? 'bg-blue-50 dark:bg-slate-900 text-blue-600 dark:text-cyan-400 border border-blue-200 dark:border-slate-800' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900/60' }}">
+                            class="px-3 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 {{ request()->routeIs('inspection') || request()->routeIs('systems.*') || request()->routeIs('figures.*') || request()->routeIs('wiring') ? 'bg-blue-50 dark:bg-slate-900 text-blue-600 dark:text-cyan-400 border border-blue-200 dark:border-slate-800' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900/60' }}">
                         <svg class="w-4 h-4 text-cyan-500 dark:text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                        <span>Maintenance & Operations</span>
+                        <span>Operations</span>
                         <svg class="w-3.5 h-3.5 text-slate-400 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
 
@@ -274,13 +274,14 @@
 
             </nav>
 
-            <!-- Right Action Tools (Search, Theme, Language, Login, Register) -->
-            <div class="flex items-center gap-2">
+            <!-- Right Action Tools (Fluid on all viewports) -->
+            <div class="flex items-center gap-1.5 sm:gap-2">
 
                 <!-- Search button -->
                 <a href="{{ route('search') }}"
-                   class="px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm">
-                    <svg class="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                   class="p-2 sm:px-2.5 sm:py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
+                   title="Search Manual">
+                    <svg class="w-4 h-4 sm:w-3.5 sm:h-3.5 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                     <span class="hidden xl:inline">Search</span>
                 </a>
 
@@ -299,10 +300,10 @@
                 </button>
 
                 <!-- Language Switcher (EN / ID) -->
-                <div x-data="languageSwitcher()" class="relative notranslate">
+                <div x-data="languageSwitcher()" class="notranslate" translate="no">
                     <button @click="toggleLanguage()"
-                            class="px-2.5 py-1.5 text-xs font-semibold flex items-center gap-1 bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-700 dark:text-slate-200 transition-all shadow-sm"
-                            :title="currentLang === 'id' ? 'Kembali ke Bahasa Inggris (Original)' : 'Terjemahkan seluruh halaman ke Bahasa Indonesia'">
+                            class="px-2 sm:px-2.5 py-1.5 text-xs font-semibold flex items-center gap-1 bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-700 dark:text-slate-200 transition-all shadow-sm"
+                            :title="currentLang === 'id' ? 'Kembali ke Bahasa Inggris (Original)' : 'Terjemahkan ke Bahasa Indonesia'">
                         <span class="text-sm" x-text="currentLang === 'id' ? '🇮🇩' : '🇺🇸'"></span>
                         <span class="font-mono text-xs font-bold text-cyan-600 dark:text-cyan-400 notranslate" x-text="currentLang === 'id' ? 'ID' : 'EN'"></span>
                     </button>
@@ -310,23 +311,25 @@
 
                 <div class="h-5 w-px bg-slate-200 dark:bg-slate-800 my-auto hidden sm:block"></div>
 
-                <!-- Login Button -->
-                <a href="{{ route('login') }}"
-                   class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm">
-                    <svg class="w-3.5 h-3.5 text-blue-500 dark:text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
-                    <span>Login</span>
-                </a>
+                <!-- Desktop Login / Register (Visible on sm screens >= 640px) -->
+                <div class="hidden sm:flex items-center gap-1.5">
+                    <a href="{{ route('login') }}"
+                       class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm">
+                        <svg class="w-3.5 h-3.5 text-blue-500 dark:text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+                        <span>Login</span>
+                    </a>
 
-                <!-- Register Button -->
-                <a href="{{ route('register') }}"
-                   class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-md shadow-blue-950/20 dark:shadow-cyan-950/60 transition-all hover:scale-105 active:scale-95">
-                    <svg class="w-3.5 h-3.5 text-cyan-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
-                    <span>Register</span>
-                </a>
+                    <a href="{{ route('register') }}"
+                       class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-md shadow-blue-950/20 dark:shadow-cyan-950/60 transition-all hover:scale-105 active:scale-95">
+                        <svg class="w-3.5 h-3.5 text-cyan-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+                        <span>Register</span>
+                    </a>
+                </div>
 
-                <!-- Mobile Hamburger Toggle -->
+                <!-- Mobile Hamburger Toggle (Visible on < lg screens) -->
                 <button @click="mobileNav = !mobileNav"
-                        class="lg:hidden p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors">
+                        class="lg:hidden p-2 rounded-xl bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 transition-colors shadow-sm"
+                        aria-label="Toggle Menu">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
 
@@ -335,7 +338,7 @@
         </div>
     </div>
 
-    <!-- Mobile Drawer Menu -->
+    <!-- Mobile Drawer Menu (Slide Down on < lg) -->
     <div x-show="mobileNav"
          x-transition:enter="transition ease-out duration-200"
          x-transition:enter-start="opacity-0 -translate-y-2"
@@ -344,36 +347,59 @@
          x-transition:leave-start="opacity-100 translate-y-0"
          x-transition:leave-end="opacity-0 -translate-y-2"
          @click.away="mobileNav = false"
-         class="lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 py-4 space-y-2 shadow-2xl"
+         class="lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 py-4 space-y-2 shadow-2xl transition-colors duration-200 max-h-[85vh] overflow-y-auto"
          style="display: none;">
-        <a href="{{ route('dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900">
-            <span>🏠</span> Dashboard
-        </a>
-        <a href="{{ route('manual.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900">
-            <span>📖</span> Service Manual (21 Sections)
-        </a>
-        <a href="{{ route('specifications') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900">
-            <span>📋</span> Factory Specifications
-        </a>
-        <a href="{{ route('models.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900">
-            <span>✈️</span> Aircraft Models & Serials
-        </a>
-        <a href="{{ route('inspection') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900">
-            <span>🔍</span> Inspection Checklist
-        </a>
-        <a href="{{ route('systems.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900">
-            <span>⚙️</span> Systems Directory
-        </a>
-        <a href="{{ route('figures.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900">
-            <span>🖼️</span> Technical Figures
-        </a>
-        <a href="{{ route('torque') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900">
-            <span>🔩</span> Torque Reference
-        </a>
-        <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex gap-2">
-            <a href="{{ route('login') }}" class="flex-1 text-center py-2 rounded-xl bg-slate-100 dark:bg-slate-900 text-xs font-bold text-slate-800 dark:text-white">Login</a>
-            <a href="{{ route('register') }}" class="flex-1 text-center py-2 rounded-xl bg-cyan-600 text-xs font-bold text-white">Register</a>
+
+        <!-- Mobile Login & Register Row (On small mobile) -->
+        <div class="grid grid-cols-2 gap-2 pb-3 border-b border-slate-200 dark:border-slate-800 sm:hidden">
+            <a href="{{ route('login') }}" class="py-2.5 text-center rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-800 dark:text-white flex items-center justify-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-blue-500 dark:text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+                <span>Login</span>
+            </a>
+            <a href="{{ route('register') }}" class="py-2.5 text-center rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 text-xs font-bold text-white flex items-center justify-center gap-1.5 shadow-md">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+                <span>Register</span>
+            </a>
         </div>
+
+        <nav class="space-y-1">
+            <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900">
+                <span class="text-base">🏠</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="{{ route('manual.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900">
+                <span class="text-base">📖</span>
+                <span>Service Manual (21 Sections)</span>
+            </a>
+            <a href="{{ route('specifications') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900">
+                <span class="text-base">📋</span>
+                <span>Factory Specifications</span>
+            </a>
+            <a href="{{ route('models.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900">
+                <span class="text-base">✈️</span>
+                <span>Aircraft Models & Serials</span>
+            </a>
+            <a href="{{ route('inspection') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900">
+                <span class="text-base">🔍</span>
+                <span>Inspection Checklist</span>
+            </a>
+            <a href="{{ route('systems.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900">
+                <span class="text-base">⚙️</span>
+                <span>Aircraft Systems Directory</span>
+            </a>
+            <a href="{{ route('figures.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900">
+                <span class="text-base">🖼️</span>
+                <span>Technical Figures Gallery</span>
+            </a>
+            <a href="{{ route('torque') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900">
+                <span class="text-base">🔩</span>
+                <span>Installation Torque Limits</span>
+            </a>
+            <a href="{{ route('wiring') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900">
+                <span class="text-base">⚡</span>
+                <span>Wiring Schematics (Sec 20)</span>
+            </a>
+        </nav>
     </div>
 </header>
 
@@ -409,7 +435,7 @@
             </p>
         </div>
 
-        <div class="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 dark:text-slate-400">
+        <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-slate-500 dark:text-slate-400">
             <a href="{{ route('manual.index') }}" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Manual Chapters</a>
             <span>•</span>
             <a href="{{ route('specifications') }}" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Specifications</a>
