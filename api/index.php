@@ -2,9 +2,6 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 
 define('LARAVEL_START', microtime(true));
 
@@ -30,7 +27,7 @@ try {
         }
     }
 
-    // Setup SQLite database in /tmp
+    // Setup pre-seeded SQLite database in /tmp
     $sourceDb = dirname(__DIR__) . '/database/database.sqlite';
     $targetDb = '/tmp/database.sqlite';
 
@@ -62,24 +59,6 @@ try {
     $app = require_once dirname(__DIR__) . '/bootstrap/app.php';
 
     $app->useStoragePath('/tmp/storage');
-    $app->boot();
-
-    // Force SQLite database connection
-    config([
-        'database.default' => 'sqlite',
-        'database.connections.sqlite.database' => $targetDb,
-        'session.driver' => 'file',
-        'session.files' => '/tmp/storage/framework/sessions',
-        'view.compiled' => '/tmp/storage/framework/views',
-    ]);
-    DB::purge('sqlite');
-    DB::reconnect('sqlite');
-
-    // Auto-migrate & seed if manuals table is not yet created
-    if (!Schema::hasTable('manuals')) {
-        Artisan::call('migrate', ['--force' => true]);
-        Artisan::call('db:seed', ['--force' => true]);
-    }
 
     // Handle incoming request
     $app->handleRequest(Request::capture());
