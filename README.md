@@ -1,66 +1,125 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ✈️ Projek Pemeliharaan & Digital Service Manual Pesawat Cessna 172
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel 12" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Alpine.js-3.x-8BC0D0?style=for-the-badge&logo=alpine.js&logoColor=white" alt="Alpine.js" />
+  <img src="https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP 8.2+" />
+  <img src="https://img.shields.io/badge/MySQL-8.0+-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
 </p>
 
-## About Laravel
+Sistem Portal Digital dan Panel Kontrol Operasi Pemeliharaan Pesawat **Cessna 172-Series (Skyhawk 1969–1976)**. Dibuat dengan arsitektur modern untuk memudahkan teknisi penerbangan, pilot, dan insinyur aviasi dalam membaca buku manual resmi pabrik, melihat diagram instalasi mekanis/kelistrikan, melakukan checklist inspeksi berkala, serta mengelola data teknis secara terpusat.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🌟 Fitur Unggulan
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 📖 1. Portal Publik & Pembaca Manual Digital
+- **Katalog 21 Bab Manual Lengkap (§01 – §20)**: Seluruh bab buku pedoman pemeliharaan pabrik dengan penomoran paragraf terindeks (`¶1-1`, `¶2-1`, dst).
+- **Terjemahan Dwibahasa Instan (🇮🇩 ID / 🇺🇸 EN)**: Dilengkapi dengan fitur penerjemah halaman dan kartu terjemahan per-paragraf dengan cache cerdas.
+- **Dukungan Penuh Mode Terang & Gelap (☀️ Light / 🌙 Dark Mode)**: Tampilan kontras tinggi yang nyaman di mata pada siang maupun malam hari dengan penyimpanan preferensi lokal.
+- **Pencarian Cepat Seluruh Manual (Global Search)**: Pencarian instan teks manual, nomor komponen, kabel, torsi, dan bab dengan sistem *debounce* dan *highlight*.
+- **Pencarian Nomor Seri Pesawat (Serial Lookup Tool)**: Alat identifikasi tahun produksi dan varian mesin berdasarkan nomor seri rangka pesawat (*Airframe Serial Number*).
+- **Checklist Inspeksi Interaktif**: Daftar tugas pemeliharaan berkala (50-Jam, 100-Jam, 200-Jam, dan Tahunan) lengkap dengan indikator progres *real-time*.
+- **Galeri Gambar & Skema Kelistrikan**: Tampilan visual resolusi tinggi untuk diagram kabel (Seksi 20), instalasi avionik, dan batas torsi pengencangan baut standar pabrik.
 
-## Learning Laravel
+### 🛡️ 2. Panel Kontrol Admin (CMS Operasi Aviasi)
+- **Navigasi Sidebar Kiri Khusus**: Tata letak sidebar modern tanpa tabrakan dengan tabel data yang luas.
+- **Manajemen Bab & Sub-Bab (CRUD Manual Sections)**: Tambah, edit, dan hapus teks prosedur pemeliharaan dan rentang halaman dokumen.
+- **Manajemen Gambar & Skema (Figures CMS)**: Unggah dan kelola blueprint instalasi dan diagram teknis.
+- **Manajemen Spesifikasi & Batas Torsi (Specifications CMS)**: Pengaturan data teknis mesin, dimensi, kapasitas bahan bakar, dan torsi pengencangan baut.
+- **Manajemen Model & Varian Pesawat (Models CMS)**: Pendataan tipe pesawat Cessna 172K, 172L, 172M, serta varian Reims F172.
+- **Manajemen Kartu Tugas Inspeksi (Inspection Tasks CMS)**: Penambahan dan pembaruan item checklist berkala.
+- **Fitur 1-Click Demo Login & Register**: Tombol otomatis untuk pengisian akun demonstrasi teknisi dan administrator.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🛠️ Teknologi yang Digunakan
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Backend Framework**: [Laravel 12](https://laravel.com)
+- **Frontend & Styling**: [Tailwind CSS](https://tailwindcss.com), [Alpine.js](https://alpinejs.dev), Blade Templating
+- **Database**: MySQL / MariaDB
+- **Build Tools**: [Vite](https://vitejs.dev)
+- **Asset Icons & Fonts**: Plus Jakarta Sans, JetBrains Mono, Heroicons
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🚀 Panduan Instalasi & Menjalankan di Komputer Lokal
 
-### Premium Partners
+Pastikan Anda telah menginstal **PHP (>= 8.2)**, **Composer**, **Node.js**, dan **MySQL** (misalnya via XAMPP).
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### 1. Clone Repository
+```bash
+git clone https://github.com/asepsurahman03/Projek-Maintanance-Pesawat.git
+cd Projek-Maintanance-Pesawat
+```
 
-## Contributing
+### 2. Install Dependensi PHP & JavaScript
+```bash
+composer install
+npm install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 3. Konfigurasi Environment (`.env`)
+Salin file konfigurasi environment:
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## Code of Conduct
+Buka file `.env` dan sesuaikan koneksi database MySQL Anda:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=maintanance_pesawat
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 4. Jalankan Migrasi & Seeder Database
+Perintah ini akan membuat seluruh tabel dan mengisi data awal 21 seksi manual, gambar, spesifikasi, dan checklist inspeksi:
+```bash
+php artisan migrate:fresh --seed
+```
 
-## Security Vulnerabilities
+### 5. Kompilasi Asset & Jalankan Server Lokal
+Buka dua terminal terpisah:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Terminal 1 (Build Asset Frontend):**
+```bash
+npm run build
+# atau untuk mode live reload:
+npm run dev
+```
 
-## License
+**Terminal 2 (Server PHP Laravel):**
+```bash
+php artisan serve
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Aplikasi sekarang dapat diakses melalui browser di:
+👉 **[http://127.0.0.1:8000](http://127.0.0.1:8000)**
+
+---
+
+## 🔐 Kredensial Akun Demonstrasi (Default)
+
+Untuk masuk ke Panel Admin CMS:
+- **URL Login**: [http://127.0.0.1:8000/login](http://127.0.0.1:8000/login)
+- **Email**: `admin@gmail.com`
+- **Password**: `password`
+*(Tersedia tombol **Auto-fill** 1-klik di halaman login)*
+
+---
+
+## ⚠️ Penafian Aviasi (Aviation Advisory)
+
+> Dokumen dan aplikasi digital ini disediakan semata-mata untuk tujuan dokumentasi, studi, dan referensi teknis. Untuk pekerjaan perawatan pesawat terbang sebenarnya, selalu gunakan dan verifikasi terhadap data pemeliharaan terbaru yang telah disetujui oleh otoritas penerbangan resmi (FAA/DGCA) serta Petunjuk Kelaikudaraan (*Airworthiness Directives*) yang berlaku.
+
+---
+
+## 📄 Lisensi
+
+Projek ini bersifat terbuka di bawah lisensi [MIT License](LICENSE).
+Dikembangkan untuk repositori [asepsurahman03/Projek-Maintanance-Pesawat](https://github.com/asepsurahman03/Projek-Maintanance-Pesawat).
