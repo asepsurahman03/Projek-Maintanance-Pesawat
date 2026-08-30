@@ -2,6 +2,8 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schema;
 
 define('LARAVEL_START', microtime(true));
 
@@ -31,7 +33,7 @@ try {
     $sourceDb = __DIR__ . '/../database/database.sqlite';
     $targetDb = '/tmp/database.sqlite';
 
-    if (!file_exists($targetDb)) {
+    if (!file_exists($targetDb) || filesize($targetDb) === 0) {
         if (file_exists($sourceDb) && filesize($sourceDb) > 0) {
             @copy($sourceDb, $targetDb);
         } else {
@@ -59,6 +61,16 @@ try {
     $app = require_once __DIR__ . '/../bootstrap/app.php';
 
     $app->useStoragePath('/tmp/storage');
+
+    // Auto-migrate and seed if tables are missing
+    try {
+        if (!Schema::hasTable('manuals')) {
+            Artisan::call('migrate', ['--force' => true]);
+            Artisan::call('db:seed', ['--force' => true]);
+        }
+    } catch (\Throwable $migrationError) {
+        // Log migration error if any
+    }
 
     // Handle incoming request
     $app->handleRequest(Request::capture());
