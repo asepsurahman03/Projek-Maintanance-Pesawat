@@ -62,8 +62,9 @@ try {
     $app = require_once dirname(__DIR__) . '/bootstrap/app.php';
 
     $app->useStoragePath('/tmp/storage');
+    $app->boot();
 
-    // Force database configuration to use /tmp/database.sqlite
+    // Force SQLite database connection
     config([
         'database.default' => 'sqlite',
         'database.connections.sqlite.database' => $targetDb,
@@ -74,7 +75,7 @@ try {
     DB::purge('sqlite');
     DB::reconnect('sqlite');
 
-    // Ensure migrations and seeders run if database was not pre-populated
+    // Auto-migrate & seed if manuals table is not yet created
     if (!Schema::hasTable('manuals')) {
         Artisan::call('migrate', ['--force' => true]);
         Artisan::call('db:seed', ['--force' => true]);
