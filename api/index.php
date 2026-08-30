@@ -28,15 +28,28 @@ try {
     }
 
     // Setup SQLite database in /tmp
-    $dbFile = '/tmp/database.sqlite';
-    if (!file_exists($dbFile)) {
-        @touch($dbFile);
-        @chmod($dbFile, 0777);
+    $sourceDb = __DIR__ . '/../database/database.sqlite';
+    $targetDb = '/tmp/database.sqlite';
+
+    if (!file_exists($targetDb)) {
+        if (file_exists($sourceDb) && filesize($sourceDb) > 0) {
+            @copy($sourceDb, $targetDb);
+        } else {
+            @touch($targetDb);
+        }
+        @chmod($targetDb, 0777);
     }
+
     putenv("DB_CONNECTION=sqlite");
-    putenv("DB_DATABASE={$dbFile}");
+    putenv("DB_DATABASE={$targetDb}");
     $_ENV['DB_CONNECTION'] = 'sqlite';
-    $_ENV['DB_DATABASE'] = $dbFile;
+    $_ENV['DB_DATABASE'] = $targetDb;
+
+    // Fallback APP_KEY
+    if (!env('APP_KEY')) {
+        putenv('APP_KEY=base64:yJXhRe8J5iIPv0y5Y3++tSwCgqRue2HwNo6zfkx8z98=');
+        $_ENV['APP_KEY'] = 'base64:yJXhRe8J5iIPv0y5Y3++tSwCgqRue2HwNo6zfkx8z98=';
+    }
 
     // Autoloader
     require __DIR__ . '/../vendor/autoload.php';
@@ -46,18 +59,6 @@ try {
     $app = require_once __DIR__ . '/../bootstrap/app.php';
 
     $app->useStoragePath('/tmp/storage');
-
-    // Automatic database migration & seeding on cold start
-    $lockFile = '/tmp/.laravel_initialized';
-    if (!file_exists($lockFile)) {
-        try {
-            \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
-            \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
-            @file_put_contents($lockFile, '1');
-        } catch (\Throwable $e) {
-            // Seeding might fail if table already seeded
-        }
-    }
 
     // Handle incoming request
     $app->handleRequest(Request::capture());

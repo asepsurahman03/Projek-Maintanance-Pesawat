@@ -21,7 +21,9 @@ return new class extends Migration
             $table->index('paragraph_number');
             $table->index('page');
             $table->index('sort_order');
-            $table->fullText(['title', 'content']);
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->fullText(['title', 'content']);
+            }
         });
     }
 
